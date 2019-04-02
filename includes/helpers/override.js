@@ -31,7 +31,7 @@ module.exports = function (hexo) {
             const categories = [];
             root.find('> .category-list-item').each(function () {
                 const category = {
-                    url: $(this).find('> .category-list-link').attr('href'),
+                    url: $(this).find('> .category-list-link').attr('id'),
                     name: $(this).find('> .category-list-link').text(),
                     count: $(this).find('> .category-list-count').text()
                 };
@@ -94,7 +94,8 @@ module.exports = function (hexo) {
         }
         $(tags.join(',')).each(function () {
             const level = tags.indexOf(this.name);
-            const id = $(this).attr('id');
+            // const id = $(this).attr('id');
+            const id = $(this.children).attr('id');
             const text = $(this).text();
 
             for (let i = 0; i < levels.length; i++) {

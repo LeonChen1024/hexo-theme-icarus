@@ -89,8 +89,22 @@ module.exports = function (hexo) {
         return post.hasOwnProperty('thumbnail') && post.thumbnail;
     });
 
+    hexo.extend.helper.register('has_banner', function (post) {
+        const getConfig = hexo.extend.helper.get('get_config').bind(this);
+        const allowBanner = getConfig('article.banner', true);
+        if (!allowBanner) {
+            return false;
+        }
+        return post.hasOwnProperty('banner') && post.banner;
+    });
+
     hexo.extend.helper.register('get_thumbnail', function (post) {
         const hasThumbnail = hexo.extend.helper.get('has_thumbnail').bind(this)(post);
         return this.url_for(hasThumbnail ? post.thumbnail : 'images/thumbnail.svg');
+    });
+
+    hexo.extend.helper.register('get_banner', function (post) {
+        const hasBanner = hexo.extend.helper.get('has_banner').bind(this)(post);
+        return this.url_for(hasBanner ? post.banner : 'images/banner.svg');
     });
 }
